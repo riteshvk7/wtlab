@@ -1,0 +1,9 @@
+1Create a login Page
+Name atleast 10 chars
+email
+phone 
+address
+for new people
+password: 2- uppercase, 1- 0-9, 1 - _@$, minlength- 2
+confirm password
+store the values in assosiative array
