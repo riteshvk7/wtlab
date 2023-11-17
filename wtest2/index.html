@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details Form</title>
+    <style>
+        /* Add your styles here */
+    </style>
+</head>
+<body>
+
+<form id="userForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="phone">Phone Number:</label>
+    <input type="text" id="phone" name="phone" pattern="^609\d{8}$" title="Please enter a valid 10-digit phone number starting with 609." required>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required>
+
+    <label for="purchaseHistory">Purchase History:</label>
+    <select id="purchaseHistory" name="purchaseHistory">
+        <option value="premium">Premium</option>
+        <option value="gold">Gold</option>
+        <option value="standard">Standard</option>
+    </select>
+
+    <button type="button" onclick="checkUserDetails()">Check Details</button>
+</form>
+
+<div id="userDetails">
+    <!-- Display user details here -->
+</div>
+
+<script>
+    function checkUserDetails() {
+        // Get form data
+        const formData = new FormData(document.getElementById('userForm'));
+
+        // Send asynchronous request to the server
+        fetch('check_user_details.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Display user details on the page
+            const userDetailsDiv = document.getElementById('userDetails');
+            userDetailsDiv.innerHTML = `<p>Name: ${data.name}</p>
+                                        <p>Email: ${data.email}</p>
+                                        <p>Phone: ${data.phone}</p>
+                                        <p>Address: ${data.address}</p>
+                                        <p>Purchase History: ${data.purchaseHistory}</p>`;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+</body>
+</html>
